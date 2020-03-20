@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import { firestore } from './index'
 import Task from './Task'
+import './Task.css'
 
 const App = () => {
 
@@ -64,14 +65,15 @@ const App = () => {
   }
 
   return (
-    <div>
-      <h1>Todo</h1>
+    <div class='App'>
+      <h1> Do you want todo something ?</h1>
+      
       <input type="text" name='name' onChange={e => setname(e.target.value)} />
       <button onClick={addTask}>Submit</button>
-      <ul>{renderTask()}</ul>
-
-
-
+      <ul style={{ display: 'flex', listStyle: 'none' ,justifyContent:'space-around'}}>{renderTask()}</ul>
+      <hr />
+      <p> create by Krittamet Petchkor 5935512001 section 02  </p>
+      <hr />
     </div>
   );
 }

@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { firestore } from './index'
+import Task from './Task'
 
 const App = () => {
 
 
-  const [tasks, setTasks] = useState([
-    { id: 1, name: "do  homework" },
-    { id: 2, name: "write node js" }
-  ]);
+  const [tasks, setTasks] = useState([]);
 
   const [name, setname] = useState();
 
@@ -33,14 +31,21 @@ const App = () => {
 
   }
 
+  const deleteTask = (id) => {
+    firestore.collection('tasks').doc(id + '').delete()
+  }
+
+  const editTask = (id) => {
+    firestore.collection('tasks').doc(id + '').set({ id, name })
+  }
+
   const renderTask = () => {
     if (tasks && tasks.length)
       return (
         tasks.map((task, index) => {
           return (
-            <li ket={index}>
-              {task.id} : {task.name}
-            </li>
+            <Task key={index} task={task}
+              deleteTask={deleteTask} editTask={editTask} />
           )
         })
       )
@@ -51,9 +56,11 @@ const App = () => {
     }
   }
 
+
+
   const addTask = () => {
-    let id = tasks[tasks.length-1].id+1
-    firestore.collection('tasks').doc(id+'').set({id,name});
+    let id = (tasks.length === 0) ? 1 : tasks[tasks.length - 1].id + 1
+    firestore.collection('tasks').doc(id + '').set({ id, name });
   }
 
   return (
@@ -61,8 +68,8 @@ const App = () => {
       <h1>Todo</h1>
       <input type="text" name='name' onChange={e => setname(e.target.value)} />
       <button onClick={addTask}>Submit</button>
-      <a>{renderTask()}</a>
-      
+      <ul>{renderTask()}</ul>
+
 
 
     </div>

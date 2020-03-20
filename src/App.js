@@ -60,8 +60,8 @@ const App = () => {
 
 
   const addTask = () => {
-    if (name==''||name==null) {
-      alert('Input some you want todo !!! idiot !!! name is : '+name)
+    if (name === '' || name === null) {
+      alert('Input some you want todo !!! idiot !!! name is : ' + name)
     }
     else {
       let id = (tasks.length === 0) ? 1 : tasks[tasks.length - 1].id + 1
@@ -70,15 +70,18 @@ const App = () => {
   }
 
   return (
-    <div class='App'>
-      <h1> Do you want todo something ?</h1>
+    <div class='AppBG' style={{ display: 'flex', listStyle: 'none', justifyContent: 'center', flexWrap: 'nowrap' }}>
+      <div class='App'>
+        <h1> Do you want todo something ?</h1>
 
-      <input type="text" name='name' onChange={e => setname(e.target.value)} />
-      <button onClick={addTask}>Submit</button>
-      <ul style={{ display: 'flex', listStyle: 'none', justifyContent: 'center', flexWrap: 'wrap' }}>{renderTask()}</ul>
-      <hr />
-      <p> create by Krittamet Petchkor 5935512001 section 02  </p>
-      <hr />
+        <input style={{ width: '200px' }} type="text" name='name' onChange={e => setname(e.target.value)} />
+        <button onClick={addTask}>Submit</button>
+        <ul style={{ display: 'flex', listStyle: 'none', justifyContent: 'center', flexWrap: 'wrap' }}>{renderTask()}</ul>
+      </div>
+    
+      <p> 
+        create by Krittamet Petchkor 5935512001 section 02  
+        </p>  
     </div>
   );
 }

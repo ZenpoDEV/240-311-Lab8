@@ -9,7 +9,7 @@ const App = () => {
 
   const [tasks, setTasks] = useState([]);
 
-  const [name, setname] = useState();
+  const [name, setname] = useState(null);
 
 
   useEffect(() => {
@@ -60,17 +60,22 @@ const App = () => {
 
 
   const addTask = () => {
-    let id = (tasks.length === 0) ? 1 : tasks[tasks.length - 1].id + 1
-    firestore.collection('tasks').doc(id + '').set({ id, name });
+    if (name==''||name==null) {
+      alert('Input some you want todo !!! idiot !!! name is : '+name)
+    }
+    else {
+      let id = (tasks.length === 0) ? 1 : tasks[tasks.length - 1].id + 1
+      firestore.collection('tasks').doc(id + '').set({ id, name });
+    }
   }
 
   return (
     <div class='App'>
       <h1> Do you want todo something ?</h1>
-      
+
       <input type="text" name='name' onChange={e => setname(e.target.value)} />
       <button onClick={addTask}>Submit</button>
-      <ul style={{ display: 'flex', listStyle: 'none' ,justifyContent:'space-around'}}>{renderTask()}</ul>
+      <ul style={{ display: 'flex', listStyle: 'none', justifyContent: 'center', flexWrap: 'wrap' }}>{renderTask()}</ul>
       <hr />
       <p> create by Krittamet Petchkor 5935512001 section 02  </p>
       <hr />
